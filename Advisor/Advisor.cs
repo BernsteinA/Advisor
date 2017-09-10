@@ -290,21 +290,39 @@ namespace HDT.Plugins.Advisor
                         foreach (var card in opponentCardlist)
                         {
                             // Remove already played opponent cards from predicted archetype deck. But don't remove revealed jousted cards, because they were only seen and not played yet.
-                            if (predictedCards.Contains(card) && !card.Jousted)
+                            if (predictedCards.Contains(card))
                             {
                                 var item = predictedCards.Find(x => x.Id == card.Id);
-                                item.Count -= card.Count;
+
+                                if (!card.Jousted)
+                                {
+                                    item.Count -= card.Count;
+                                }
+
+                                // highlight jousted cards in green
+                                // also highlight when deck has 2 of a card and we have matched one
+                                if (item.Count > 0)
+                                {
+                                    item.HighlightInHand = true;
+                                    item.InHandCount += card.Count;
+                                }
+                                else
+                                {
+                                    item.HighlightInHand = false;
+                                    item.InHandCount = 0;
+                                }
                             }
                             if (Settings.Default.ShowNonMatchingCards)
                             {
                                 // Show known cards that don't match the archetype deck, in red
                                 if (!predictedCards.Contains(card))
                                 {
-                                    card.HighlightInHand = false;
-                                    card.WasDiscarded = true;
-                                    if (!card.Jousted)
-                                        card.Count = 0;
-                                    predictedCards.Add(card);
+                                    var item = (Card)card.Clone();
+                                    item.HighlightInHand = false;
+                                    item.WasDiscarded = true;
+                                    if (!item.Jousted)
+                                        item.Count = 0;
+                                    predictedCards.Add(item);
                                 }
                             }
 
