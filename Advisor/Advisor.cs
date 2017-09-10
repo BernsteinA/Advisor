@@ -274,7 +274,7 @@ namespace HDT.Plugins.Advisor
                     {
                         // Count how many cards from opponent deck are in matched deck
                         int matchingCards = matchedDeck.Key.CountMatchingCards(opponentCardlist);
-                        _advisorOverlay.LblArchetype.Text = String.Format("{0} ({1}/{2})", matchedDeck.Key.Name, matchingCards, matchedDeck.Key.Cards.Sum(x=>x.Count) + opponentCardlist.Sum(x => x.Count) - matchingCards);
+                        _advisorOverlay.LblArchetype.Text = String.Format("{0} ({1}/{2})", matchedDeck.Key.Name, matchingCards, matchedDeck.Key.CountUnion(opponentCardlist));
                     }
                     else
                     {
