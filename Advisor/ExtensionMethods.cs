@@ -31,7 +31,7 @@ namespace HDT.Plugins.Advisor
                 {
                     if (i.Equals(j))
                     {
-                        lenAnB += i.Count;
+                        lenAnB += Math.Min(i.Count, j.Count);
                     }
                 }
             }
@@ -60,7 +60,7 @@ namespace HDT.Plugins.Advisor
                 {
                     if (i.Equals(j))
                     {
-                        lenAnB += i.Count;
+                        lenAnB += Math.Min(i.Count, j.Count);
                     }
                 }
             }
@@ -84,7 +84,7 @@ namespace HDT.Plugins.Advisor
                 {
                     if (i.Equals(j))
                     {
-                        count += i.Count;
+                        count += Math.Min(i.Count, j.Count);
                     }
                 }
             }
